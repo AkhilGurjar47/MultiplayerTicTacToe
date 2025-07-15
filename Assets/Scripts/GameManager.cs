@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
@@ -11,6 +12,15 @@ public class GameManager : MonoBehaviour
         public int x;
         public int y;
     }
+
+    public enum playerType
+    {
+        None,
+        Cross,
+        Circle,
+    }
+
+    private playerType localPlayerType;
     private void Awake()
     {
         if (Instance != null)
@@ -18,6 +28,11 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Another GameManager");
         }
         Instance = this;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        
     }
     public void ClickedOnGridPosition(int x,int y)
     {
